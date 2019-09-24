@@ -3,6 +3,7 @@ package com.example.budgetcontrol;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface MyUserAccessObject {
 
     @Query("select * from userInfo")
     public List<UserInfo> getUsers();
+
+    @Update
+    public void updateUserInfo(UserInfo user);
 
 }

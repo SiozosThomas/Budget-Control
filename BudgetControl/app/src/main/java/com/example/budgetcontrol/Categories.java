@@ -17,10 +17,6 @@ import java.util.List;
  */
 public class Categories extends Fragment {
 
-    private ProgressBar homeProgressBar, clothesProgressBar, entertainmentProgressBar,
-            fuelProgressBar, otherProgressBar;
-    private TextView user_name;
-
     public Categories() {
         // Required empty public constructor
     }
@@ -31,17 +27,39 @@ public class Categories extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_categories, container, false);
-        user_name = view.findViewById(R.id.user_name_categories);
+        ProgressBar homeProgressBar, clothesProgressBar, entertainmentProgressBar,
+                fuelProgressBar, otherProgressBar;
+        TextView homeTextView, clothesTextView, enterTextView, fuelTextView, otherTextView;
+        homeTextView = view.findViewById(R.id.home_text_view);
+        clothesTextView = view.findViewById(R.id.clothes_text_view);
+        enterTextView = view.findViewById(R.id.entertainment_text_view);
+        fuelTextView = view.findViewById(R.id.fuel_text_view);
+        otherTextView = view.findViewById(R.id.other_text_view);
+        homeTextView.setText("Home: \t" + getTotalAmountOfType("Home").toString());
+        clothesTextView.setText("Clothes: \t" + getTotalAmountOfType("Clothes").toString());
+        enterTextView.setText("Entertainment: \t" + getTotalAmountOfType("Entertainment").toString());
+        fuelTextView.setText("Fuel: \t" + getTotalAmountOfType("Fuel").toString());
+        otherTextView.setText("Other: \t" + getTotalAmountOfType("Other").toString());
         homeProgressBar = view.findViewById(R.id.home_progress_bar);
         clothesProgressBar = view.findViewById(R.id.clothes_progress_bar);
         entertainmentProgressBar = view.findViewById(R.id.entertainment_progress_bar);
         fuelProgressBar = view.findViewById(R.id.fuel_progress_bar);
         otherProgressBar = view.findViewById(R.id.other_progress_bar);
 
-        user_name.setText(getUserName());
-
         homeProgressBar.setMax((int) Math.round(getUserIncome()));
-        homeProgressBar.setProgress(20);
+        homeProgressBar.setProgress((int) Math.round(getTotalAmountOfType("Home")));
+
+        clothesProgressBar.setMax((int) Math.round(getUserIncome()));
+        clothesProgressBar.setProgress((int) Math.round(getTotalAmountOfType("Clothes")));
+
+        entertainmentProgressBar.setMax((int) Math.round(getUserIncome()));
+        entertainmentProgressBar.setProgress((int) Math.round(getTotalAmountOfType("Entertainment")));
+
+        fuelProgressBar.setMax((int) Math.round(getUserIncome()));
+        fuelProgressBar.setProgress((int) Math.round(getTotalAmountOfType("Fuel")));
+
+        otherProgressBar.setMax((int) Math.round(getUserIncome()));
+        otherProgressBar.setProgress((int) Math.round(getTotalAmountOfType("Other")));
 
         return view;
     }
@@ -51,9 +69,12 @@ public class Categories extends Fragment {
         return users.get(0).getIncome();
     }
 
-    private String getUserName() {
-        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
-        return users.get(0).getName();
+    private Double getTotalAmountOfType(String type) {
+        List<Outcome> outcomes = MainActivity.outcomeDatabase.outcomeDao().getOutcomes();
+        double totalAmount = 0.0;
+        for (Outcome outcome : outcomes) if (outcome.getType().equals(type))
+            totalAmount += outcome.getValue();
+        return totalAmount;
     }
 
 }

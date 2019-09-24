@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddIncome"
+    android:background="?attr/colorPrimary">
+
+    <EditText
+        android:id="@+id/editTextValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Give a value"
+        android:textColorHint="@color/menu_text_color"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textStyle="italic"
+        app:fontFamily="@font/eczar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/labelEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Give a label"
+        android:textColorHint="@color/menu_text_color"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textStyle="italic"
+        app:fontFamily="@font/eczar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValue"/>
+
+    <Button
+        android:id="@+id/save_button_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="#243447"
+        android:shadowColor="#000000"
+        android:text="Save"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelEditText" />
+
+</android.support.constraint.ConstraintLayout>

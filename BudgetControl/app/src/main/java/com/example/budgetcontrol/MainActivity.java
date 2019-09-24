@@ -1,6 +1,7 @@
 package com.example.budgetcontrol;
 
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     public static UserDatabase userDatabase;
     public static OutcomeDatabase outcomeDatabase;
+    public static IncomeDatabase incomeDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "userInfo").allowMainThreadQueries().build();
         outcomeDatabase = Room.databaseBuilder(getApplicationContext(), OutcomeDatabase.class, "outcome").allowMainThreadQueries().build();
+        incomeDatabase = Room.databaseBuilder(getApplicationContext(), IncomeDatabase.class, "income").allowMainThreadQueries().build();
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);

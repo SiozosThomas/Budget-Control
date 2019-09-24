@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Balance extends Fragment {
+public class Balance extends Fragment implements View.OnClickListener {
 
     private TextView viewUserName, viewIncome, viewOutcome;
-    private Button btnSave;
+    private Button btnIncome, btnOutcome;
 
     public Balance() {
         // Required empty public constructor
@@ -33,19 +33,59 @@ public class Balance extends Fragment {
         viewUserName = view.findViewById(R.id.user_name_balance);
         viewIncome = view.findViewById(R.id.income_txt);
         viewOutcome = view.findViewById(R.id.outcome_txt);
-        btnSave = view.findViewById(R.id.add_outcome_button);
+        btnIncome = view.findViewById(R.id.add_income_button);
+        btnIncome.setOnClickListener(this);
+        btnOutcome = view.findViewById(R.id.add_outcome_button);
+        btnOutcome.setOnClickListener(this);
 
         List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
         viewUserName.setText(users.get(0).getName().toString());
+        setIncome();
         viewIncome.setText("Income: \t" + String.valueOf(users.get(0).getIncome()));
+        setOutcome();
         viewOutcome.setText("Oucome: \t" + String.valueOf(users.get(0).getOutcome()));
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddOutcome()).addToBackStack(null).commit();
-            }
-        });
         return view;
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_income_button:
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddIncome()).addToBackStack(null).commit();
+                break;
+            case R.id.add_outcome_button:
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddOutcome()).addToBackStack(null).commit();
+                break;
+        }
+    }
+
+    private void setIncome() {
+        UserInfo user = new UserInfo();
+        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
+        user = users.get(0);
+        user.setIncome(getTotalIncome());
+        MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
+    }
+
+    private double getTotalIncome() {
+        List<Income> incomes = MainActivity.incomeDatabase.incomeDao().getIncomes();
+        double totalAmount = 0.0;
+        for (Income income : incomes) totalAmount += income.getValue();
+        return totalAmount;
+    }
+
+    private void setOutcome() {
+        UserInfo user = new UserInfo();
+        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
+        user = users.get(0);
+        user.setOutcome(getTotalOutcome());
+        MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
+    }
+
+    private double getTotalOutcome() {
+        List<Outcome> outcomes = MainActivity.outcomeDatabase.outcomeDao().getOutcomes();
+        double totalAmount = 0.0;
+        for (Outcome outcome : outcomes) totalAmount += outcome.getValue();
+        return totalAmount;
     }
 
 }
