@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddOutcome"
+    android:background="?attr/colorPrimary">
+
+    <EditText
+        android:id="@+id/editTextValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Give a value"
+        android:textColorHint="@color/menu_text_color"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textStyle="italic"
+        app:fontFamily="@font/eczar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/select_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Select a type:"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:fontFamily="@font/eczar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValue" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_txt_view">
+
+        <RadioButton
+            android:id="@+id/home_r_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Home"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:fontFamily="@font/eczar" />
+
+        <RadioButton
+            android:id="@+id/clothes_r_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Clothes"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:fontFamily="@font/eczar" />
+
+        <RadioButton
+            android:id="@+id/entertainment_r_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Entertainment"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:fontFamily="@font/eczar" />
+
+        <RadioButton
+            android:id="@+id/fuel_r_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Fuel"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:fontFamily="@font/eczar" />
+
+        <RadioButton
+            android:id="@+id/other_r_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Other"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            app:fontFamily="@font/eczar" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/save_button_outcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="#243447"
+        android:shadowColor="#000000"
+        android:text="Save"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+</android.support.constraint.ConstraintLayout>

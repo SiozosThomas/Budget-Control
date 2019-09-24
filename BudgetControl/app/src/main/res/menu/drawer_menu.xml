@@ -8,7 +8,7 @@
         <item
             android:id="@+id/outcome_categories"
             android:icon="@drawable/ic_categories"
-            android:title="Outcome Categories" />
+            android:title="Categories" />
         <item
             android:id="@+id/baselines"
             android:icon="@drawable/ic_graphs"

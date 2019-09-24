@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     public static FragmentManager fragmentManager;
     public static UserDatabase userDatabase;
+    public static OutcomeDatabase outcomeDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "userInfo").allowMainThreadQueries().build();
+        outcomeDatabase = Room.databaseBuilder(getApplicationContext(), OutcomeDatabase.class, "outcome").allowMainThreadQueries().build();
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
@@ -68,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         displayMessage("Outcome Categories Selected...");
                         drawerLayout.closeDrawers();
-                        return true;
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new Categories()).commit();
+                        break;
                     case R.id.baselines:
                         menuItem.setChecked(true);
                         displayMessage("Graphs Selected...");

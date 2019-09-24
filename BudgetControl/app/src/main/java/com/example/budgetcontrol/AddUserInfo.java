@@ -40,7 +40,7 @@ public class AddUserInfo extends Fragment {
                 UserInfo user = new UserInfo();
                 user.setId(0);
                 user.setName(userName.getText().toString());
-                user.setIncome(0);
+                user.setIncome(1000);
                 user.setOutcome(0);
                 user.setLimit(parseDouble(outcomeLimit.getText().toString()));
 
