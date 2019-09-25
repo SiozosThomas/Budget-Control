@@ -40,9 +40,7 @@ public class Balance extends Fragment implements View.OnClickListener {
 
         List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
         viewUserName.setText(users.get(0).getName().toString());
-        setIncome();
         viewIncome.setText("Income: \t" + String.valueOf(users.get(0).getIncome()));
-        setOutcome();
         viewOutcome.setText("Oucome: \t" + String.valueOf(users.get(0).getOutcome()));
         return view;
     }
@@ -56,36 +54,6 @@ public class Balance extends Fragment implements View.OnClickListener {
                 MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddOutcome()).addToBackStack(null).commit();
                 break;
         }
-    }
-
-    private void setIncome() {
-        UserInfo user = new UserInfo();
-        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
-        user = users.get(0);
-        user.setIncome(getTotalIncome());
-        MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
-    }
-
-    private double getTotalIncome() {
-        List<Income> incomes = MainActivity.incomeDatabase.incomeDao().getIncomes();
-        double totalAmount = 0.0;
-        for (Income income : incomes) totalAmount += income.getValue();
-        return totalAmount;
-    }
-
-    private void setOutcome() {
-        UserInfo user = new UserInfo();
-        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
-        user = users.get(0);
-        user.setOutcome(getTotalOutcome());
-        MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
-    }
-
-    private double getTotalOutcome() {
-        List<Outcome> outcomes = MainActivity.outcomeDatabase.outcomeDao().getOutcomes();
-        double totalAmount = 0.0;
-        for (Outcome outcome : outcomes) totalAmount += outcome.getValue();
-        return totalAmount;
     }
 
 }

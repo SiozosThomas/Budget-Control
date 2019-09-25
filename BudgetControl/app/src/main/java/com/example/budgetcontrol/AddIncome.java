@@ -46,6 +46,9 @@ public class AddIncome extends Fragment {
                     income.setId(incomes.get(incomes.size() - 1).getId() + 1);
                 }
                 try {
+                    UserInfo user = getUser();
+                    user.setIncome(getUserIncome() + Double.parseDouble(valueTxt.getText().toString()));
+                    MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
                     income.setValue(Double.parseDouble(valueTxt.getText().toString()));
                     MainActivity.incomeDatabase.incomeDao().addIncome(income);
                     Toast.makeText(getActivity(),"Income added successfully", Toast.LENGTH_SHORT).show();
@@ -57,6 +60,15 @@ public class AddIncome extends Fragment {
             }
         });
         return view;
+    }
+
+    private UserInfo getUser() {
+        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
+        return users.get(0);
+    }
+
+    private double getUserIncome() {
+        return getUser().getIncome();
     }
 
 }

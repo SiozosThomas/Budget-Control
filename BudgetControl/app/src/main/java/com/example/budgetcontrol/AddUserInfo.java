@@ -31,7 +31,7 @@ public class AddUserInfo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_user_info, container, false);
-        btnSave = view.findViewById(R.id.btn_save);
+        btnSave = view.findViewById(R.id.btn_pic);
         userName = view.findViewById(R.id.txt_set_name);
         outcomeLimit = view.findViewById(R.id.txt_set_outcome_limit);
         btnSave.setOnClickListener(new View.OnClickListener() {

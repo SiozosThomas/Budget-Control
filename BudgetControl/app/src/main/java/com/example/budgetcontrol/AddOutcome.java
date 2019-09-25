@@ -64,6 +64,9 @@ public class AddOutcome extends Fragment {
                 }
                 outcome.setType(whichRButton);
                 try {
+                    UserInfo user = getUser();
+                    user.setOutcome(getUserOutcome() + Double.parseDouble(valueEditText.getText().toString()));
+                    MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
                     outcome.setValue(Double.parseDouble(valueEditText.getText().toString()));
                     MainActivity.outcomeDatabase.outcomeDao().addOutcome(outcome);
                     Toast.makeText(getActivity(),"Outcome added successfully", Toast.LENGTH_SHORT).show();
@@ -75,6 +78,15 @@ public class AddOutcome extends Fragment {
             }
         });
         return view;
+    }
+
+    private UserInfo getUser() {
+        List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
+        return users.get(0);
+    }
+
+    private double getUserOutcome() {
+        return getUser().getOutcome();
     }
 
 }

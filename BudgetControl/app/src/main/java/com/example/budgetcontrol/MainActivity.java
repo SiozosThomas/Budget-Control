@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static UserDatabase userDatabase;
     public static OutcomeDatabase outcomeDatabase;
     public static IncomeDatabase incomeDatabase;
+    public static ImageDatabase imageDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "userInfo").allowMainThreadQueries().build();
         outcomeDatabase = Room.databaseBuilder(getApplicationContext(), OutcomeDatabase.class, "outcome").allowMainThreadQueries().build();
         incomeDatabase = Room.databaseBuilder(getApplicationContext(), IncomeDatabase.class, "income").allowMainThreadQueries().build();
+        imageDatabase = Room.databaseBuilder(getApplicationContext(), ImageDatabase.class, "image").allowMainThreadQueries().build();
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
@@ -80,16 +81,18 @@ public class MainActivity extends AppCompatActivity {
                         displayMessage("Graphs Selected...");
                         drawerLayout.closeDrawers();
                         return true;
-                    case R.id.set_limit:
+                    case R.id.receipts:
                         menuItem.setChecked(true);
-                        displayMessage("Set Limit Selected...");
+                        displayMessage("Receipts Selected...");
                         drawerLayout.closeDrawers();
-                        return true;
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new Receipt()).commit();
+                        break;
                     case R.id.outcome_warning:
                         menuItem.setChecked(true);
                         displayMessage("Outcome Warning Selected...");
                         drawerLayout.closeDrawers();
-                        return true;
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new OutcomeLimit()).commit();
+                        break;
 
                 }
                 return true;

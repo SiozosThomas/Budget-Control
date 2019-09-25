@@ -18,10 +18,6 @@
             android:icon="@drawable/ic_camera"
             android:title="Receipts" />
         <item
-            android:id="@+id/set_limit"
-            android:icon="@drawable/ic_build"
-            android:title="Set Outcome Limit" />
-        <item
             android:id="@+id/outcome_warning"
             android:icon="@drawable/ic_warning"
             android:title="Outcome Limit" />
