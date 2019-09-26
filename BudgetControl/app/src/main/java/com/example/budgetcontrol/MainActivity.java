@@ -76,11 +76,6 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new Categories()).commit();
                         break;
-                    case R.id.baselines:
-                        menuItem.setChecked(true);
-                        displayMessage("Graphs Selected...");
-                        drawerLayout.closeDrawers();
-                        return true;
                     case R.id.receipts:
                         menuItem.setChecked(true);
                         displayMessage("Receipts Selected...");
@@ -93,7 +88,18 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new OutcomeLimit()).commit();
                         break;
-
+                    case R.id.year:
+                        menuItem.setChecked(true);
+                        displayMessage("Graph per Year Selected...");
+                        drawerLayout.closeDrawers();
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GraphPerYear()).commit();
+                        break;
+                    case R.id.month:
+                        menuItem.setChecked(true);
+                        displayMessage("Graph per Month Selected...");
+                        drawerLayout.closeDrawers();
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddYearForGraph()).commit();
+                        break;
                 }
                 return true;
             }

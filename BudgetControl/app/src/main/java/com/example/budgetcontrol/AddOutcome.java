@@ -1,17 +1,20 @@
 package com.example.budgetcontrol;
 
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
-
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -20,12 +23,14 @@ import java.util.List;
  */
 public class AddOutcome extends Fragment {
 
-    private RadioGroup radioGroup;
     private RadioButton homeRadioButton, clothesRadioButton, enterRadioButton, fuelRadioButton,
             otherRadioButton;
-    private Button btnSave;
     private String whichRButton = "Other";
     private EditText valueEditText;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private int day;
+    private int month;
+    private int year;
 
 
     public AddOutcome() {
@@ -38,14 +43,38 @@ public class AddOutcome extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_add_outcome, container, false);
+        Button btnSave, btnDate;
         btnSave = view.findViewById(R.id.save_button_outcome);
         valueEditText = view.findViewById(R.id.editTextValue);
-        radioGroup = view.findViewById(R.id.radioGroup);
         homeRadioButton = view.findViewById(R.id.home_r_button);
         clothesRadioButton = view.findViewById(R.id.clothes_r_button);
         enterRadioButton = view.findViewById(R.id.entertainment_r_button);
         fuelRadioButton = view.findViewById(R.id.fuel_r_button);
         otherRadioButton = view.findViewById(R.id.other_r_button);
+        btnDate = view.findViewById(R.id.date_button);
+
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                setYear(calendar.get(Calendar.YEAR));
+                setMonth(calendar.get(Calendar.MONTH));
+                setDay(calendar.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListener, getYear(), getMonth(), getDay());
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                setYear(year);
+                setMonth(month);
+                setDay(dayOfMonth);
+                Toast.makeText(getActivity(),"date: " + dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+            }
+        };
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +92,9 @@ public class AddOutcome extends Fragment {
                     outcome.setId(outcomes.get(outcomes.size() - 1).getId() + 1);
                 }
                 outcome.setType(whichRButton);
+                outcome.setYear(getYear());
+                outcome.setMonth(getMonth());
+                outcome.setDay(getDay());
                 try {
                     UserInfo user = getUser();
                     user.setOutcome(getUserOutcome() + Double.parseDouble(valueEditText.getText().toString()));
@@ -87,6 +119,30 @@ public class AddOutcome extends Fragment {
 
     private double getUserOutcome() {
         return getUser().getOutcome();
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getDay() {
+        return this.day;
     }
 
 }

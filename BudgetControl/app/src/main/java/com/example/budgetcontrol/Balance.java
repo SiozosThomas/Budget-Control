@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Balance extends Fragment implements View.OnClickListener {
 
-    private TextView viewUserName, viewIncome, viewOutcome;
+    private TextView viewUserName, viewIncome, viewOutcome, viewBalance;
     private Button btnIncome, btnOutcome;
 
     public Balance() {
@@ -34,6 +34,7 @@ public class Balance extends Fragment implements View.OnClickListener {
         viewIncome = view.findViewById(R.id.income_txt);
         viewOutcome = view.findViewById(R.id.outcome_txt);
         btnIncome = view.findViewById(R.id.add_income_button);
+        viewBalance = view.findViewById(R.id.balance_txt);
         btnIncome.setOnClickListener(this);
         btnOutcome = view.findViewById(R.id.add_outcome_button);
         btnOutcome.setOnClickListener(this);
@@ -41,7 +42,8 @@ public class Balance extends Fragment implements View.OnClickListener {
         List<UserInfo> users = MainActivity.userDatabase.myUserAccessObject().getUsers();
         viewUserName.setText(users.get(0).getName().toString());
         viewIncome.setText("Income: \t" + String.valueOf(users.get(0).getIncome()));
-        viewOutcome.setText("Oucome: \t" + String.valueOf(users.get(0).getOutcome()));
+        viewOutcome.setText("Outcome: \t" + String.valueOf(users.get(0).getOutcome()));
+        viewBalance.setText("Balance: \t" + String.valueOf(users.get(0).getIncome() - users.get(0).getOutcome()));
         return view;
     }
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -50,6 +51,13 @@ public class AddIncome extends Fragment {
                     user.setIncome(getUserIncome() + Double.parseDouble(valueTxt.getText().toString()));
                     MainActivity.userDatabase.myUserAccessObject().updateUserInfo(user);
                     income.setValue(Double.parseDouble(valueTxt.getText().toString()));
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    income.setYear(year);
+                    income.setMonth(month);
+                    income.setDay(day);
                     MainActivity.incomeDatabase.incomeDao().addIncome(income);
                     Toast.makeText(getActivity(),"Income added successfully", Toast.LENGTH_SHORT).show();
                 } catch (NumberFormatException e) {

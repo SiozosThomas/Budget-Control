@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -22,8 +25,14 @@ import java.util.List;
  */
 public class Receipt extends Fragment {
 
-    private ImageView imageView;
     private static final int REQUEST_IMAGE_PICTURE = 101;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerAdapterImages recyclerAdapterImages;
+    private List<Image> images = MainActivity.imageDatabase.imageDao().getImages();
+    private int year;
+    private int month;
+    private int day;
 
     public Receipt() {
         // Required empty public constructor
@@ -36,8 +45,13 @@ public class Receipt extends Fragment {
         // Inflate the layout for this fragment
         Button btnTakePic;
         View view =  inflater.inflate(R.layout.fragment_receipt, container, false);
-        imageView = view.findViewById(R.id.imageView);
         btnTakePic = view.findViewById(R.id.btn_pic);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerAdapterImages = new RecyclerAdapterImages(images);
+        recyclerView.setAdapter(recyclerAdapterImages);
         btnTakePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,12 +80,26 @@ public class Receipt extends Fragment {
             }
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
             ByteArrayOutputStream blob = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 0 /* Ignored for PNGs */, blob);
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
             image.setImage(blob.toByteArray());
+            image.setYear(year);
+            image.setMonth(month);
+            image.setDay(day);
             MainActivity.imageDatabase.imageDao().addImage(image);
             Toast.makeText(getActivity(),"Image saved succesfully...", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void setTodayDate() {
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
 }

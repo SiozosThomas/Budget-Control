@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single" >
         <item
             android:id="@+id/account_balance"
@@ -10,10 +10,6 @@
             android:icon="@drawable/ic_categories"
             android:title="Categories" />
         <item
-            android:id="@+id/baselines"
-            android:icon="@drawable/ic_graphs"
-            android:title="Graphs" />
-        <item
             android:id="@+id/receipts"
             android:icon="@drawable/ic_camera"
             android:title="Receipts" />
@@ -21,5 +17,12 @@
             android:id="@+id/outcome_warning"
             android:icon="@drawable/ic_warning"
             android:title="Outcome Limit" />
+        <item android:id="@+id/year"
+            android:icon="@drawable/ic_graphs"
+            android:title="Graphs Per Year" />
+        <item android:id="@+id/month"
+            android:icon="@drawable/ic_graphs"
+            android:title="Grapths Per Month" />
     </group>
+
 </menu>
