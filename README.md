@@ -14,4 +14,4 @@
 Μέσω του εργαλείου Android Studio πάνω σε διάφορες συσκευές android που προσφέρει.
 
 ## Copyright
-[MIT](https://github.com/SiozosThomas/Budget-Control/blob/master/LICENSE) (c) 2020 Thomas Siozos
+[MIT](https://github.com/SiozosThomas/Budget-Control/blob/master/LICENSE) © 2020 Thomas Siozos
